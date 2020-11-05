@@ -113,7 +113,7 @@ class DBSession:
         return found
 
 
-@lru_cache
+@lru_cache(None)
 def get_credentials(
         config_file_name: str = Depends(get_config_filename),
         secrets_file_name: str = Depends(get_app_secrets_filename),
