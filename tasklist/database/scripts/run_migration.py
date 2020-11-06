@@ -2,7 +2,6 @@ from argparse import ArgumentParser
 
 from utils import run_script
 
-
 def main():
     parser = ArgumentParser(description='Run a migration script.')
     parser.add_argument('script', help='Script to run')

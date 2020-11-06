@@ -17,7 +17,7 @@ class Task(BaseModel):
         title='Shows whether the task was completed',
     )
 
-    user_uuid: uuid.UUID = Field(
+    user_uuid: Optional[str] = Field(
         title='User identification'
     )
 

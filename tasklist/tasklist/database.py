@@ -17,7 +17,7 @@ class DBSession:
     def __init__(self, connection: conn.MySQLConnection):
         self.connection = connection
 
-    def create_user(self, item : User):
+    def create_user(self, item: User):
         uuid_ = uuid.uuid4()
 
         with self.connection.cursor() as cursor:
@@ -204,9 +204,6 @@ class DBSession:
             found = bool(results[0])
 
         return found
-
-
-
 
 
 @lru_cache(None)

@@ -49,10 +49,9 @@ def test_create_and_read_some_tasks():
         "name" : "Luquinha"
     }
     response = client.post("/user", json=user)
-    print(response.json())
+
     _uuid = response.json()
     assert response.status_code == 200
-    print("UUID PRINTADO = {}".format(_uuid))
 
     tasks = [
         {
@@ -145,53 +144,70 @@ def test_create_and_read_some_tasks():
     assert response.json() == {}
 
 
-# def test_substitute_task():
-#     setup_database()
+def test_substitute_task():
+    setup_database()
 
-#     # Create a task.
-#     task = {'description': 'foo', 'completed': False}
-#     response = client.post('/task', json=task)
-#     assert response.status_code == 200
-#     uuid_ = response.json()
+    #Criando usuario
+    user_felipe = {
+        "name" : "Felipe"
+    }
+    response = client.post("/user", json=user_felipe)
 
-#     # Replace the task.
-#     new_task = {'description': 'bar', 'completed': True}
-#     response = client.put(f'/task/{uuid_}', json=new_task)
-#     assert response.status_code == 200
+    # Create a task.
+    task = {'description': 'foo', 'completed': False, "user_uuid": response.json()}
+    response = client.post('/task', json=task)
+    assert response.status_code == 200
+    uuid_ = response.json()
 
-#     # Check whether the task was replaced.
-#     response = client.get(f'/task/{uuid_}')
-#     assert response.status_code == 200
-#     assert response.json() == new_task
+    #Criando usuario
+    user_luca = {
+        "name" : "Luca"
+    }
+    response = client.post("/user", json=user_luca)
 
-#     # Delete the task.
-#     response = client.delete(f'/task/{uuid_}')
-#     assert response.status_code == 200
+    # Replace the task.
+    new_task = {'description': 'bar', 'completed': True, "user_uuid": response.json()}
+    response = client.put(f'/task/{uuid_}', json=new_task)
+    assert response.status_code == 200
+
+    # Check whether the task was replaced.
+    response = client.get(f'/task/{uuid_}')
+    assert response.status_code == 200
+    assert response.json() == new_task
+
+    # Delete the task.
+    response = client.delete(f'/task/{uuid_}')
+    assert response.status_code == 200
 
 
-# def test_alter_task():
-#     setup_database()
+def test_alter_task():
+    setup_database()
 
-#     # Create a task.
-#     task = {'description': 'foo', 'completed': False}
-#     response = client.post('/task', json=task)
-#     assert response.status_code == 200
-#     uuid_ = response.json()
+    #Criando usuario
+    user = {
+        "name" : "Felipe"
+    }
+    response = client.post("/user", json=user)
 
-#     # Replace the task.
-#     new_task_partial = {'completed': True}
-#     response = client.patch(f'/task/{uuid_}', json=new_task_partial)
-#     assert response.status_code == 200
+    # Create a task.
+    task = {'description': 'nova task', 'completed': False, "user_uuid": response.json()}
+    response = client.post('/task', json=task)
+    assert response.status_code == 200
+    uuid_ = response.json()
 
-#     # Check whether the task was altered.
-#     response = client.get(f'/task/{uuid_}')
-#     assert response.status_code == 200
-#     assert response.json() == {**task, **new_task_partial}
+    # Replace the task.
+    new_task_partial = {'completed': True}
+    response = client.patch(f'/task/{uuid_}', json=new_task_partial)
+    assert response.status_code == 200
 
-#     # Delete the task.
-#     response = client.delete(f'/task/{uuid_}')
-#     assert response.status_code == 200
+    # Check whether the task was altered.
+    response = client.get(f'/task/{uuid_}')
+    assert response.status_code == 200
+    assert response.json() == {**task, **new_task_partial}
 
+    # Delete the task.
+    response = client.delete(f'/task/{uuid_}')
+    assert response.status_code == 200
 
 def test_read_invalid_task():
     setup_database()
@@ -221,25 +237,31 @@ def test_delete_nonexistant_task():
     assert response.status_code == 404
 
 
-# def test_delete_all_tasks():
-#     setup_database()
+def test_delete_all_tasks():
+    setup_database()
 
-#     # Create a task.
-#     task = {'description': 'foo', 'completed': False}
-#     response = client.post('/task', json=task)
-#     assert response.status_code == 200
-#     uuid_ = response.json()
+    #Criando usuario
+    user = {
+        "name" : "Felipe"
+    }
+    response = client.post("/user", json=user)
 
-#     # Check whether the task was inserted.
-#     response = client.get('/task')
-#     assert response.status_code == 200
-#     assert response.json() == {uuid_: task}
+    # Create a task.
+    task = {'description': 'foo', 'completed': False, "user_uuid": response.json()}
+    response = client.post('/task', json=task)
+    assert response.status_code == 200
+    uuid_ = response.json()
 
-#     # Delete all tasks.
-#     response = client.delete('/task')
-#     assert response.status_code == 200
+    # Check whether the task was inserted.
+    response = client.get('/task')
+    assert response.status_code == 200
+    assert response.json() == {uuid_: task}
 
-#     # Check whether all tasks have been removed.
-#     response = client.get('/task')
-#     assert response.status_code == 200
-#     assert response.json() == {}
+    # Delete all tasks.
+    response = client.delete('/task')
+    assert response.status_code == 200
+
+    # Check whether all tasks have been removed.
+    response = client.get('/task')
+    assert response.status_code == 200
+    assert response.json() == {}
