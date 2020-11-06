@@ -1,0 +1,5 @@
+-- DROP TABLE IF EXISTS users;
+-- CREATE TABLE users (
+--     uuid BINARY(255) PRIMARY KEY,
+--     name NVARCHAR(1024)
+-- );

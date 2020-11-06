@@ -10,7 +10,7 @@ def main():
     # parser.add_argument('secrets', help='Service database admin secrets')
 
     args = parser.parse_args()
-    run_all_scripts("/home/felipe/Documents/insper/megadados/Megadados2020-2-Projeto1-alunos/tasklist/database/migrations", "/home/felipe/Documents/insper/megadados/Megadados2020-2-Projeto1-alunos/tasklist/config/config.json", "/home/felipe/Documents/insper/megadados/Megadados2020-2-Projeto1-alunos/tasklist/config/db_admin_secrets.json")
+    run_all_scripts('/home/felipe/Documents/insper/megadados/Megadados2020-2-Projeto1-alunos/tasklist/database/migrations/', '/home/felipe/Documents/insper/megadados/Megadados2020-2-Projeto1-alunos/tasklist/config/config.json', '/home/felipe/Documents/insper/megadados/Megadados2020-2-Projeto1-alunos/tasklist/config/db_admin_secrets.json')
 
     # python3 run_all_migrations /home/felipe/Documents/insper/megadados/Megadados2020-2-Projeto1-alunos/tasklist/database/migrations  /home/felipe/Documents/insper/megadados/Megadados2020-2-Projeto1-alunos/tasklist/config/config.json /home/felipe/Documents/insper/megadados/Megadados2020-2-Projeto1-alunos/tasklist/config/db_admin_secrets.json
 

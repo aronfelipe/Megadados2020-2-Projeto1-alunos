@@ -49,6 +49,7 @@ def run_script(filename_script, filename_config, filename_secrets):
         config = json.load(file)
     with open(filename_secrets, 'r') as file:
         secrets = json.load(file)
+
     conn = cnt.connect(
         host=config['db_host'],
         database=config['database'],
@@ -63,6 +64,7 @@ def run_script(filename_script, filename_config, filename_secrets):
         # https://dev.mysql.com/doc/connector-python/en/connector-python-api-mysqlcursor-execute.html
         for _ in cursor.execute(script, multi=True):
             pass
+        
     conn.commit()
     conn.close()
 
